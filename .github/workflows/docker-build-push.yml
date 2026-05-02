@@ -3,10 +3,10 @@ name: CI/CD Pipeline - Build and Push Docker Image
 on:
   push:
     branches:
-      - dev-branch
+      - main
   pull_request:
     branches:
-      - dev-branch
+      - main
 
 jobs:
   build-and-push:

@@ -559,7 +559,7 @@ nginx_connections_active
 ## Task 5 — CI/CD Pipeline
 
 ### Overview
-This task implements a CI/CD pipeline using GitHub Actions that automatically builds the Docker image and pushes it to Docker Hub on every push to `dev-branch`.
+This task implements a CI/CD pipeline using GitHub Actions that automatically builds the Docker image and pushes it to Docker Hub on every push to `main-branch`.
 
 ### What Was Added
 - `.github/workflows/docker-build-push.yml` — GitHub Actions workflow file
@@ -809,7 +809,7 @@ kubectl get events --sort-by='.lastTimestamp' | tail -20
 
 ## Monitoring
 
-The full Prometheus + Grafana monitoring stack was implemented in **Task 4 — Logging & Monitoring** as part of the Docker Compose deployment. See `Task4.md` for the complete setup, scrape configs, and dashboards.
+The full Prometheus + Grafana monitoring stack was implemented in **Task 4 — Logging & Monitoring** as part of the Docker Compose deployment. See Task4 for the complete setup, scrape configs, and dashboards.
 
 In the Kubernetes deployment, the application's `/metrics` endpoint remains exposed via the ingress and is ready to be scraped by an in-cluster Prometheus:
 
@@ -817,7 +817,6 @@ In the Kubernetes deployment, the application's `/metrics` endpoint remains expo
 curl -k https://secure-proxy.local/metrics | head -20
 ```
 
-Porting the full monitoring stack to Kubernetes (using ServiceMonitor CRDs or the kube-prometheus-stack Helm chart) is out of scope for this task.
 
 ![metrics endpoint](./screenshots/k8s-metrics.png)
 
@@ -853,20 +852,6 @@ sudo sed -i '/secure-proxy.local/d' /etc/hosts
 
 All screenshots are in the `screenshots/` directory.
 
-| File | Shows |
-|---|---|
-| `minikube-start.png` | `minikube start` output |
-| `minikube-status.png` | `minikube status` confirming cluster is running |
-| `minikube-dashboard.png` | Minikube dashboard |
-| `minikube-list.png` | Available addons including ingress |
-| `k8s-get-pod.png` | All three pods (1 db + 2 app) Running |
-| `k8s-get-svc.png` | Services: db (ClusterIP), secure-reverse-proxy (NodePort) |
-| `k8s-get-ingress.png` | Ingress with populated ADDRESS and PORTS 80, 443 |
-| `k8s-health.png` | `curl -k https://secure-proxy.local/health` returning `{"status":"ok"}` |
-| `k8s-app-browser.png` | Student Records Portal rendered in the browser |
-| `k8s-app-logs.png` | Flask request logs from `kubectl logs` |
-| `k8s-metrics.png` | Prometheus metrics exposed via ingress |
-| `k8s-events.png` | `kubectl get events` |
 
 
 # References
